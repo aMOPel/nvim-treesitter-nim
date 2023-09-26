@@ -4,7 +4,10 @@
 
 ### Why is it not integrated into `nvim-treesitter`?
 
-**TL;DR:** The parser doesn't work on macOS.
+**TL;DR:** The `scanner.cc` in the nim parser uses C++14 Standard,
+which creates problems on macOS due to the way nvim-treesitter handles 
+parser compilation. A special compiler flag is needed in that case,
+for which support is going to be dropped in the upcoming release of nvim-treesitter.
 
 **Long version:** read the comments in the [rejected PR](https://github.com/nvim-treesitter/nvim-treesitter/pull/5437).
 
