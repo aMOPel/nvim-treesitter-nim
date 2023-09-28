@@ -9,6 +9,9 @@ which creates problems on macOS due to the way nvim-treesitter handles
 parser compilation. A special compiler flag is needed in that case,
 for which support is going to be dropped in the upcoming release of nvim-treesitter.
 
+**UPDATE:** The `scanner.cc` will be rewritten eventually and another PR
+to nvim-treesitter will follow. So this plugin remains a temporary measure.
+
 **Long version:** read the comments in the [rejected PR](https://github.com/nvim-treesitter/nvim-treesitter/pull/5437).
 
 ### Features
