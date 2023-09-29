@@ -26,15 +26,49 @@
 ; @conditional.inner
 ; @conditional.outer
 
-(if consequence: (statement_list) @conditional.inner) @conditional.outer
-(when consequence: (statement_list) @conditional.inner) @conditional.outer
-(elif_branch
-  consequence: (statement_list) @conditional.inner) @conditional.outer
-(else_branch
-  (statement_list) @conditional.inner) @conditional.outer
-(case) @conditional.outer
-(of_branch
-  (statement_list) @conditional.inner) @conditional.outer
+[
+  (if)
+  (when)
+  (case)
+] @conditional.outer
+
+(if 
+  consequence: 
+    (statement_list
+      . (_)? @_start
+      (_) @_end .)
+    (#make-range! "conditional.inner" @_start @_end))
+(when 
+  consequence: 
+    (statement_list
+      . (_)? @_start
+      (_) @_end .)
+    (#make-range! "conditional.inner" @_start @_end))
+(elif_branch 
+  "elif" @_outer_start
+  consequence: 
+    (statement_list
+      . (_)? @_start
+      (_) @_end .)
+    (#make-range! "conditional.inner" @_start @_end)
+    (#make-range! "conditional.outer" @_outer_start @_end))
+(else_branch 
+  "else" @_outer_start
+  (statement_list
+    . (_)? @_start
+    (_) @_end .)
+  (#make-range! "conditional.inner" @_start @_end)
+  (#make-range! "conditional.outer" @_outer_start @_end))
+((case
+  ":" . (_) @_start (_)? @_end .)
+  (#make-range! "conditional.inner" @_start @_end))
+(of_branch 
+  "of" @_outer_start
+  (statement_list
+    . (_)? @_start
+    (_) @_end .)
+  (#make-range! "conditional.inner" @_start @_end)
+  (#make-range! "conditional.outer" @_outer_start @_end))
 
 ; ==============================================================================
 ; @loop.inner
@@ -48,6 +82,8 @@
 ; @call.outer
 
 (call (argument_list) @call.inner) @call.outer
+; NOTE: parenthesis are included in @call.inner, but there are problems
+; when excluding them, since there is also the cmd call syntax
 
 ; ==============================================================================
 ; @block.inner
@@ -198,6 +234,54 @@
 ; @assignment.outer
 ; @assignment.lhs
 ; @assignment.rhs
+
+(variable_declaration
+  (symbol_declaration_list) @_symbols
+  type: (_)? @_type
+  value: "="
+  value: (_) @assignment.rhs @assignment.inner
+  (#make-range! "assignment.lhs" @_symbols @_type)) @assignment.outer
+
+(type_declaration
+  (type_symbol_declaration) @assignment.lhs
+  . "="
+  . (_) @assignment.rhs @assignment.inner) @assignment.outer
+
+(assignment
+  left: (_) @assignment.lhs 
+  right: (_) @assignment.rhs @assignment.inner) @assignment.outer
+
+; default parameter in proc decl
+; keyword argument in call
+; array construction
+(colon_expression
+  left: (_) @assignment.lhs 
+  right: (_) @assignment.rhs @assignment.inner) @assignment.outer
+
+; TODO: correct ranges to not reach on next lines
+
+; object construction
+; tuple construction
+; table construction
+(equal_expression
+  left: (_) @assignment.lhs 
+  right: (_) @assignment.rhs @assignment.inner) @assignment.outer
+
+; object types
+; tuple types
+(field_declaration
+  (symbol_declaration_list) @_symbols
+  type: (_)? @_type
+  value: "="?
+  value: (_)? @assignment.rhs @assignment.inner
+  (#make-range! "assignment.lhs" @_symbols @_type)) @assignment.outer
+
+; enum types
+(enum_field_declaration
+  (symbol_declaration) @assignment.lhs
+  "="?
+  value: (_)? @assignment.rhs @assignment.inner) @assignment.outer
+
 
 ; ==============================================================================
 ; @return.inner
