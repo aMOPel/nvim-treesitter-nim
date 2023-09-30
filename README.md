@@ -22,6 +22,7 @@ to nvim-treesitter will follow. So this plugin remains a temporary measure.
       * SQL and RegEx strings
       * `std/strformat` strings, including debugging `=` and other 
         [quirks](https://nim-lang.org/docs/strformat.html#standard-format-specifiers-for-strings-integers-and-floats)
+        * requires `:TSInstall nim_format_string`
       * MarkDown in doc comments
       * C/Cpp/ObjC/JavaScript in emit pragma 
     * [x] Folds
@@ -31,49 +32,6 @@ to nvim-treesitter will follow. So this plugin remains a temporary measure.
 * [x] [nvim-treesitter-context](https://github.com/nvim-treesitter/nvim-treesitter-context)
 * [x] [nvim-treesitter-textobjects](https://github.com/nvim-treesitter/nvim-treesitter-textobjects)
 * [ ] [vim-matchup](https://github.com/andymass/vim-matchup) (coming soon)
-
-**NOTE:** 
-In format strings `{`/`}` have to be escaped, which breaks the nim parser,
-thus expressions in format strings containing `\{`/`\}` will intentionally not be parsed.
-
-**NOTE:** 
-Parsing in the emit pragma requires the language name in comment on the preceding line.
-E.g.:
-
-```nim
-# cpp           <- necessary
-{.emit: """
-...
-<cpp code>
-...
-""".}
-```
-
-**NOTE:** 
-nvim-treesitter-textobjects support for
-
-```
-@function.inner
-@function.outer
-@conditional.inner
-@conditional.outer
-@loop.inner
-@loop.outer
-@call.inner
-@call.outer
-@parameter.inner
-@parameter.outer
-@comment.inner
-@comment.outer
-@assignment.inner
-@assignment.outer
-@assignment.lhs
-@assignment.rhs
-@return.inner
-@return.outer
-@statement.outer
-@number.inner
-```
 
 ### Installation
 
@@ -112,4 +70,63 @@ Don't forget to run
 ```
 
 to actually install the Parsers.
+
+
+### NOTES
+
+**Format Strings** 
+In format strings `{`/`}` have to be escaped, which breaks the nim parser,
+thus expressions in format strings containing `\{`/`\}` will intentionally not be parsed.
+
+**Emit Pragma** 
+Parsing in the emit pragma requires the language name in comment on the preceding line.
+E.g.:
+
+```nim
+# cpp           <- necessary
+{.emit: """
+...
+<cpp code>
+...
+""".}
+```
+
+**nvim-treesitter-textobjects** 
+Support for
+
+```
+@function.inner
+@function.outer
+@conditional.inner
+@conditional.outer
+@loop.inner
+@loop.outer
+@call.inner
+@call.outer
+@parameter.inner
+@parameter.outer
+@comment.inner
+@comment.outer
+@assignment.inner
+@assignment.outer
+@assignment.lhs
+@assignment.rhs
+@return.inner
+@return.outer
+@statement.outer
+@number.inner
+```
+
+NO support for
+```
+@attribute.inner
+@attribute.outer
+@class.inner
+@class.outer
+@block.inner
+@block.outer
+@regex.inner
+@regex.outer
+@scopename.inner
+```
 
