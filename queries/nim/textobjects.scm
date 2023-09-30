@@ -90,6 +90,7 @@
 ; @block.outer
 
 ; NOTE: there is a (block) statement but this capture is about indentation blocks
+; NOTE: no easy way to catch all "blocks", also there is just the indent text object
 
 ; ==============================================================================
 ; @parameter.inner
@@ -245,7 +246,11 @@
 (type_declaration
   (type_symbol_declaration) @assignment.lhs
   . "="
-  . (_) @assignment.rhs @assignment.inner) @assignment.outer
+  . (_  (_) @_end .) @_start
+  (#make-range! "assignment.rhs" @_start @_end)
+  (#make-range! "assignment.inner" @_start @_end)
+  (#make-range! "assignment.outer" @assignment.lhs @_end))
+; NOTE: ranges are necessary, so multiline types don't reach until next line
 
 (assignment
   left: (_) @assignment.lhs 
@@ -257,8 +262,6 @@
 (colon_expression
   left: (_) @assignment.lhs 
   right: (_) @assignment.rhs @assignment.inner) @assignment.outer
-
-; TODO: correct ranges to not reach on next lines
 
 ; object construction
 ; tuple construction
@@ -287,12 +290,67 @@
 ; @return.inner
 ; @return.outer
 
+(return_statement (_) @return.inner) @return.outer
 
 ; ==============================================================================
 ; @statement.outer
+
+[
+  ; simple
+  (import_statement)
+  (import_from_statement)
+  (export_statement)
+  (include_statement)
+  (discard_statement)
+  (return_statement)
+  (raise_statement)
+  (yield_statement)
+  (break_statement)
+  (continue_statement)
+  (assembly_statement)
+  (bind_statement)
+  (mixin_statement)
+  (pragma_statement)
+
+  ; complex
+  (while)
+  (static_statement)
+  (defer)
+
+  ; declarations
+  (proc_declaration)
+  (func_declaration)
+  (method_declaration)
+  (iterator_declaration)
+  (macro_declaration)
+  (template_declaration)
+  (converter_declaration)
+  (using_section)
+  (const_section)
+  (let_section)
+  (var_section)
+  (type_section)
+
+  ; expression statements
+  (block)
+  (if)
+  (when)
+  (case)
+  (try)
+  (for)
+  (assignment)
+  ; NOTE: not including 
+  ; simple_expression, call, infix_expression, prefix_expression
+  ; because it would confusing 
+] @statement.outer
 
 ; ==============================================================================
 ; @scopename.inner
 
 ; ==============================================================================
 ; @number.inner
+
+[
+  (integer_literal)
+  (float_literal)
+] @number.inner

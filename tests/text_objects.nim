@@ -2,7 +2,8 @@
 # functions
 
 proc `proc1`*[GenParam1: int](`param1`, param2: int) =
-  discard
+  return 
+    (1,2.0,3)
 func func1() =
   discard
 method method1(parameter1: Object1) =
@@ -120,19 +121,28 @@ comment
 # assignments
 
 var
-  x = 1
+  x = (
+  discard;
+  discard;
+  5
+  )
   y:int {.asdf.} = 1
 x = 5
 type 
   O[T]{.asd.} = object of RootObj
     a: int = 5
-    b: T
+    case x: int:
+    of 5:
+      b:int = 5
+      
   T = tuple
     a: int = 5
     b: int
   E = enum
     A = "a"
     B = "b"
+  I = int
+  I = int
 
 let c = (
   [0:0, 1:1],

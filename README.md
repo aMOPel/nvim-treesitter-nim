@@ -29,7 +29,7 @@ to nvim-treesitter will follow. So this plugin remains a temporary measure.
     * [ ] Indents (probably not coming any time soon).
 * [x] [nvim-treesitter-refactor](https://github.com/nvim-treesitter/nvim-treesitter-refactor)
 * [x] [nvim-treesitter-context](https://github.com/nvim-treesitter/nvim-treesitter-context)
-* [ ] [nvim-treesitter-textobjects](https://github.com/nvim-treesitter/nvim-treesitter-textobjects) (coming soon)
+* [x] [nvim-treesitter-textobjects](https://github.com/nvim-treesitter/nvim-treesitter-textobjects)
 * [ ] [vim-matchup](https://github.com/andymass/vim-matchup) (coming soon)
 
 **NOTE:** 
@@ -39,6 +39,7 @@ thus expressions in format strings containing `\{`/`\}` will intentionally not b
 **NOTE:** 
 Parsing in the emit pragma requires the language name in comment on the preceding line.
 E.g.:
+
 ```nim
 # cpp           <- necessary
 {.emit: """
@@ -48,6 +49,31 @@ E.g.:
 """.}
 ```
 
+**NOTE:** 
+nvim-treesitter-textobjects support for
+
+```
+@function.inner
+@function.outer
+@conditional.inner
+@conditional.outer
+@loop.inner
+@loop.outer
+@call.inner
+@call.outer
+@parameter.inner
+@parameter.outer
+@comment.inner
+@comment.outer
+@assignment.inner
+@assignment.outer
+@assignment.lhs
+@assignment.rhs
+@return.inner
+@return.outer
+@statement.outer
+@number.inner
+```
 
 ### Installation
 
