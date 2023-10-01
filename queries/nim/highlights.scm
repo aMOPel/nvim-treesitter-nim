@@ -28,11 +28,6 @@
 ; unused
 
 ; =============================================================================
-; @preproc               ; various preprocessor directives & shebangs
-
-(pragma_list ["{." "}" ".}"] @preproc)
-
-; =============================================================================
 ; @define                ; preprocessor definition directives
 ; unused
 
@@ -53,6 +48,12 @@
 ; @punctuation.bracket   ; brackets (e.g. `()` / `{}` / `[]`)
 
 [ "(" ")" "[" "[:" "]" "{" "}" ] @punctuation.bracket
+
+; =============================================================================
+; @preproc               ; various preprocessor directives & shebangs
+
+(pragma_list ["{." "}" ".}"] @preproc)
+; NOTE: has to come after punctuation bracket
 
 ; =============================================================================
 ; @punctuation.special   ; special symbols (e.g. `{}` in string interpolation)
