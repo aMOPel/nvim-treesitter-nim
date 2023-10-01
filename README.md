@@ -31,8 +31,9 @@ to nvim-treesitter will follow. So this plugin remains a temporary measure.
 * [x] [nvim-treesitter-refactor](https://github.com/nvim-treesitter/nvim-treesitter-refactor)
 * [x] [nvim-treesitter-context](https://github.com/nvim-treesitter/nvim-treesitter-context)
 * [x] [nvim-treesitter-textobjects](https://github.com/nvim-treesitter/nvim-treesitter-textobjects)
-* [ ] [vim-matchup](https://github.com/andymass/vim-matchup) (coming soon)
+* [x] [vim-matchup](https://github.com/andymass/vim-matchup)
 
+See [`tests/`](./tests/) for explicit examples of supported features.
 ### Installation
 
 **Tested with Nvim 0.9.1**
@@ -130,3 +131,18 @@ NO support for
 @scopename.inner
 ```
 
+**vim-matchup:**
+
+It's recommended to disabled the virtual text for the closing scope, since it
+will not be accurate.
+
+```
+require 'nvim-treesitter.configs'.setup {
+-- ...
+  matchup = {
+    enable = true,
+    disable_virtual_text = {"nim"},
+  },
+-- ...
+}
+```
