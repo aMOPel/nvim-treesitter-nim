@@ -151,6 +151,16 @@ discard proc1(5, 1, @["hi"])
 discard proc1[int, string](5, 1, @["hi"])
 
 external_module.externalGenProc1[int](5)
+5.echo("abc")
+5.0.echo
+'a'.echo
+"a".echo
+"""a""".echo
+[5].echo
+@[5].echo
+(5,).echo
+{5..10}.echo
+{"hi":5}.echo
 
 # type qualifiers
 type 

@@ -178,6 +178,30 @@
   (accent_quoted (identifier) @function.call)
 ])
 
+; call with leading literal
+(dot_expression
+  left: [
+    (nil_literal)
+    (integer_literal)
+    (float_literal)
+    (custom_numeric_literal)
+    (char_literal)
+    (string_literal)
+    (array_construction)
+    ; for sequences
+    (prefix_expression 
+      operator: (operator) @_at
+      (array_construction)
+      (#eq? @_at "@"))
+    (tuple_construction)
+    (curly_construction)
+  ]
+  right: [
+    (identifier) @function.call
+    (accent_quoted (identifier) @function.call)
+  ])
+; NOTE: will double capture as @function.call if it also has argument_list
+
 ; =============================================================================
 ; @function.builtin ; built-in functions
 ; unused
