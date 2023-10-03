@@ -59,6 +59,8 @@ assert Person isnot tuple[other: string, age: int]
 proc returnsNestedTuple(): (int, (int, int), int, int) = (4, (5, 7), 2, 3)
 let (t1*, (_, t2*), _, t3*) = returnsNestedTuple()
 
+const (const1*, (`const2`*)) = (1,(2,))
+
 # object
 type
   Person1* = object of RootObj

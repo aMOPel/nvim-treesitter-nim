@@ -699,6 +699,16 @@
           (exported_symbol (accent_quoted (identifier) @constant))
         ]))))
 
+((tuple_deconstruct_declaration
+  (symbol_declaration
+    name: [
+      (identifier) @constant
+      (accent_quoted (identifier) @constant)
+      (exported_symbol (identifier) @constant)
+      (exported_symbol (accent_quoted (identifier) @constant))
+    ])) @_tuple_decons
+  (#has-ancestor? @_tuple_decons const_section))
+
 ; =============================================================================
 ; @constant.builtin ; built-in constant values
 
