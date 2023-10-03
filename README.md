@@ -9,6 +9,8 @@ which creates problems on macOS due to the way nvim-treesitter handles
 parser compilation. A special compiler flag is needed in that case,
 for which support is going to be dropped in the upcoming release of nvim-treesitter.
 
+With `nvim-treesitter < v1.0.0` this plugin should work fine on macOS.
+
 **UPDATE:** The `scanner.cc` will be rewritten eventually and another PR
 to nvim-treesitter will follow. So this plugin remains a temporary measure.
 
@@ -95,7 +97,7 @@ E.g.:
 **nvim-treesitter-textobjects** 
 Support for
 
-```
+```scheme
 @function.inner
 @function.outer
 @conditional.inner
@@ -119,7 +121,7 @@ Support for
 ```
 
 NO support for
-```
+```scheme
 @attribute.inner
 @attribute.outer
 @class.inner
@@ -136,7 +138,7 @@ NO support for
 It's recommended to disabled the virtual text for the closing scope, since it
 will not be accurate.
 
-```
+```lua
 require 'nvim-treesitter.configs'.setup {
 -- ...
   matchup = {
