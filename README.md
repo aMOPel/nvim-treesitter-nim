@@ -5,7 +5,7 @@
 ### Why is it not integrated into `nvim-treesitter`?
 
 **TL;DR:** The `scanner.cc` in the nim parser uses C++14 Standard,
-which creates problems on macOS due to the way nvim-treesitter handles 
+which creates problems on macOS due to the way nvim-treesitter handles
 parser compilation. A special compiler flag is needed in that case,
 for which support is going to be dropped in the upcoming release of nvim-treesitter.
 
@@ -18,40 +18,46 @@ to nvim-treesitter will follow. So this plugin remains a temporary measure.
 
 ### Features
 
-* [nvim-treesitter](https://github.com/nvim-treesitter/nvim-treesitter)
-    * [x] Highlighting 
-    * [x] Language Injection
-      * SQL and RegEx strings
-      * `std/strformat` strings, including debugging `=` and other 
-        [quirks](https://nim-lang.org/docs/strformat.html#standard-format-specifiers-for-strings-integers-and-floats)
-        * requires `:TSInstall nim_format_string`
-      * MarkDown in doc comments
-      * C/Cpp/ObjC/JavaScript in emit pragma 
-    * [x] Folds
-    * [x] Locals
-    * [ ] Indents (probably not coming any time soon).
-* [x] [nvim-treesitter-refactor](https://github.com/nvim-treesitter/nvim-treesitter-refactor)
-* [x] [nvim-treesitter-context](https://github.com/nvim-treesitter/nvim-treesitter-context)
-* [x] [nvim-treesitter-textobjects](https://github.com/nvim-treesitter/nvim-treesitter-textobjects)
-* [x] [vim-matchup](https://github.com/andymass/vim-matchup)
+- [nvim-treesitter](https://github.com/nvim-treesitter/nvim-treesitter)
+  - [x] Highlighting
+  - [x] Language Injection
+    - SQL and RegEx strings
+    - `std/strformat` strings, including debugging `=` and other
+      [quirks](https://nim-lang.org/docs/strformat.html#standard-format-specifiers-for-strings-integers-and-floats) (see [Notes](#format-strings))
+    - MarkDown in doc comments
+    - C/Cpp/ObjC/JavaScript in emit pragma (see [Notes](#emit-pragma))
+  - [x] Folds
+  - [x] Locals
+  - [ ] Indents (probably not coming any time soon).
+- [x] [nvim-treesitter-refactor](https://github.com/nvim-treesitter/nvim-treesitter-refactor)
+- [x] [nvim-treesitter-context](https://github.com/nvim-treesitter/nvim-treesitter-context)
+- [x] [nvim-treesitter-textobjects](https://github.com/nvim-treesitter/nvim-treesitter-textobjects) (see [Notes](#nvim-treesitter-textobjectsp))
+- [x] [vim-matchup](https://github.com/andymass/vim-matchup) (see [Notes](#vim-matchup))
+- [ ] [rainbow-delimiters.nvim](https://github.com/HiPhish/rainbow-delimiters.nvim) (coming soon)
 
 See [`tests/`](./tests/) for explicit examples of supported features.
+
 ### Installation
 
 **Tested with Nvim 0.9.1**
 
+#### Step 0
+
 **Dependencies:**
 
-* [nvim-treesitter](https://github.com/nvim-treesitter/nvim-treesitter)
+- [nvim-treesitter](https://github.com/nvim-treesitter/nvim-treesitter)
 
 **Optional Dependencies:**
 
-* [nvim-treesitter-refactor](https://github.com/nvim-treesitter/nvim-treesitter-refactor)
-* [nvim-treesitter-context](https://github.com/nvim-treesitter/nvim-treesitter-context)
-* [nvim-treesitter-textobjects](https://github.com/nvim-treesitter/nvim-treesitter-textobjects)
-* [vim-matchup](https://github.com/andymass/vim-matchup)
+- [nvim-treesitter-refactor](https://github.com/nvim-treesitter/nvim-treesitter-refactor)
+- [nvim-treesitter-context](https://github.com/nvim-treesitter/nvim-treesitter-context)
+- [nvim-treesitter-textobjects](https://github.com/nvim-treesitter/nvim-treesitter-textobjects)
+- [vim-matchup](https://github.com/andymass/vim-matchup)
 
-Like any other plugin.
+
+#### Step 1
+
+Install the plugin like any other.
 
 E.g. with Packer:
 
@@ -59,29 +65,35 @@ E.g. with Packer:
 use { "aMOPel/nvim-treesitter-nim" }
 ```
 
-This plugin just registers the 
-[nim Parser](https://github.com/alaviss/tree-sitter-nim) 
+#### Step 2
+
+This plugin just registers the
+[nim Parser](https://github.com/alaviss/tree-sitter-nim)
 and the
 [nim-format-string Parser](https://github.com/aMOPel/tree-sitter-nim-format-string)
 with nvim-treesitter and provides the queries.
 
 Don't forget to run
 
-```
+```vim
 :TSInstall nim
+" for `std/strformat` format strings
 :TSInstall nim_format_string
 ```
 
 to actually install the Parsers.
 
-
 ### NOTES
 
-**Format Strings** 
+#### Format Strings
+
+**Requires** `:TSInstall nim_format_string`.
+
 In format strings `{`/`}` have to be escaped, which breaks the nim parser,
 thus expressions in format strings containing `\{`/`\}` will intentionally not be parsed.
 
-**Emit Pragma** 
+#### Emit Pragma
+
 Parsing in the emit pragma requires the language name in comment on the preceding line.
 E.g.:
 
@@ -94,7 +106,8 @@ E.g.:
 """.}
 ```
 
-**nvim-treesitter-textobjects** 
+#### nvim-treesitter-textobjects
+
 Support for
 
 ```scheme
@@ -121,6 +134,7 @@ Support for
 ```
 
 NO support for
+
 ```scheme
 @attribute.inner
 @attribute.outer
@@ -133,7 +147,7 @@ NO support for
 @scopename.inner
 ```
 
-**vim-matchup:**
+#### vim-matchup
 
 It's recommended to disabled the virtual text for the closing scope, since it
 will not be accurate.
