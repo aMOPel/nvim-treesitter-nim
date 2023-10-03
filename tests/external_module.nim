@@ -6,4 +6,5 @@ type
     a*: T
 
 
-proc externalGenProc1*[T](a:int) = discard
+proc externalGenProc1*[T](a:int=5) = discard
+proc externalGenProc2*(a:int=5) = discard

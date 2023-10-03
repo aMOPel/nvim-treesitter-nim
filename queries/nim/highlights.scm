@@ -636,6 +636,8 @@
 
 ((identifier) @variable.builtin
   (#eq? @variable.builtin "result"))
+; NOTE: technically needs `has-ancestor some routine declaration` but it's
+; not worth it
 
 ; =============================================================================
 ; @constant         ; constant identifiers

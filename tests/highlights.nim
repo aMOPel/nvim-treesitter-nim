@@ -2,7 +2,7 @@
 # https://nim-lang.org/docs/manual.html
 # Authors: Andreas Rumpf, Zahary Karadjov
 
-const literals = (true, false, on, off,
+const literals* = (true, false, on, off,
   5, 5.0, 5e5, 5i32, 5.0d, 0xadf,
   'c', '\n',
   "asdf\n",
@@ -14,19 +14,21 @@ const literals = (true, false, on, off,
   \n""",
   )
 
+type X = ref object
+var a*: X = nil
 # enum
 type 
   `Enum1`* {.pure.} = enum one, two, three
   Enum2* = enum 
     one="hi", two=4, three=(5,"test")
 
-discard Enum1.one
+discard `Enum1`.one
 
 # array
 type 
-  Array1* = array[0..1, seq[array[Enum1, int]]]
-  Array2* = array[Enum1.one..Enum1.two, int]
-const arr1*: Array1 = [@[], @[[Enum1.one:1,Enum1.two:2,3]]]
+  Array1* = array[0..1, seq[array[`Enum1`, int]]]
+  Array2* = array[`Enum1`.one..`Enum1`.two, int]
+const arr1*: Array1 = [@[], @[[`Enum1`.one:1,`Enum1`.two:2,3]]]
 discard arr1[0]
 const test = 3
 let arr2* = [1:"hi", 2:"bye", test:"shy"]
@@ -74,7 +76,7 @@ type
 
 discard `12`(a:5)
 
-import ../external_module
+import external_module
 let
   p1 = Person1(name:"a", age:5)
   # BUG: not recognized as constructor
@@ -137,6 +139,7 @@ discard 'a' in set1
 # pointer and refs
 var p2 = (ref Person1)(name:"a", age:5)
 p2[] = p1 # ref accessor
+p2[] = p2[] # ref accessor
 p2 = nil
 var d* = cast[ptr Person1](alloc0(sizeof(Person1)))
 
@@ -147,12 +150,14 @@ type Proc2* = proc(
   b: proc(a, b: proc(a, b: GenObj[seq[array[0..test, int]]]) {.nimcall.}) {.nimcall.},
   c: GenObj[seq[array[0..5, int]]]
 ): void {.nimcall.}
-proc proc1*[T: int|float, S](a, b: T, _: seq[S]): var GenObj[void] {.nimcall.} = 
-  return result
+proc proc1*[T: int|float, S](a, b: T, _: seq[S]): var GenObj[int] {.nimcall.} = 
+  var x = GenObj[int](a:5,b:5,c:5)
+  result = x
 discard proc1(5, 1, @["hi"])
 discard proc1[int, string](5, 1, @["hi"])
 
 external_module.externalGenProc1[int](5)
+external_module.externalGenProc2()
 5.echo("abc")
 5.0.echo
 'a'.echo
@@ -177,11 +182,11 @@ let cash = 15.Dollar
 discard cash + 12.Dollar
 
 # template
-template additive(typ: typedesc) =
+template additive*(typ: typedesc) =
   proc `+` *(x, y: typ): typ {.borrow.}
 
 # iterator
-iterator iota(n: int): int =
+iterator iota*(n: int): int =
   for i in 0..<n: yield i
 
 for (i,j) in pairs([0..10]):
@@ -189,7 +194,7 @@ for (i,j) in pairs([0..10]):
   discard j
 
 # statement list expression
-let stmtList = (( discard; 
+let stmtList* = (( discard; 
 discard; 5 ))
 
 # static
@@ -199,7 +204,7 @@ static:
 echo static(123)
 
 # const
-const roundPi = 3.1415
+const roundPi* = 3.1415
 
 # generalized string
 proc `0`(`a`: string) = discard
@@ -210,11 +215,11 @@ proc `0`(`a`: string) = discard
 try:
   discard
 except external_module.ExternalRefGenObj[seq[seq[int]]] as e:
-  discard
+  discard e
 
 const xxx = [1,2,3]
 const `yyy` = [2,3]
-let arr4 = [`yyy`[xxx[0]]: 1]
+let arr4* = [`yyy`[xxx[0]]: 1]
 
 let choice = 3
 case choice:
@@ -225,4 +230,5 @@ of xxx[1]:
 of xxx[2]:
   discard
 else:
-  discard
+  block label:
+    break label
