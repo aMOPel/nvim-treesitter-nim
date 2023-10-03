@@ -182,6 +182,10 @@ template additive(typ: typedesc) =
 iterator iota(n: int): int =
   for i in 0..<n: yield i
 
+for (i,j) in pairs([0..10]):
+  discard i
+  discard j
+
 # statement list expression
 let stmtList = (( discard; 
 discard; 5 ))

@@ -286,6 +286,24 @@
           (accent_quoted (identifier) @parameter)
         ]))))
 
+; for loop variables
+(for
+  left:
+    (symbol_declaration_list
+      (symbol_declaration
+        name: [
+          (identifier) @parameter
+          (accent_quoted (identifier) @parameter)
+        ])))
+
+((tuple_deconstruct_declaration
+  (symbol_declaration
+    name: [
+      (identifier) @parameter
+      (accent_quoted (identifier) @parameter)
+    ])) @_tuple_decons
+  (#has-ancestor? @_tuple_decons for))
+
 ; =============================================================================
 ; @keyword             ; various keywords
 
