@@ -34,7 +34,7 @@ to `nvim-treesitter` will follow. So this plugin remains a temporary measure.
 - [x] [**nvim-treesitter-context**](https://github.com/nvim-treesitter/nvim-treesitter-context)
 - [x] [**nvim-treesitter-textobjects**](https://github.com/nvim-treesitter/nvim-treesitter-textobjects) (see [Notes](#nvim-treesitter-textobjectsp))
 - [x] [**vim-matchup**](https://github.com/andymass/vim-matchup) (see [Notes](#vim-matchup))
-- [ ] [**rainbow-delimiters.nvim**](https://github.com/HiPhish/rainbow-delimiters.nvim) (coming soon)
+- [x] [**rainbow-delimiters.nvim**](https://github.com/HiPhish/rainbow-delimiters.nvim)
 - [x] [**nim.nvim**](https://github.com/alaviss/nim.nvim) Synergy (see [Notes](#nim.nvim))
 
 See [`tests/`](./tests/) for explicit examples of supported features.
@@ -58,7 +58,7 @@ See [`tests/`](./tests/) for explicit examples of supported features.
 
 **Recommended:**
 
-- [**nim.nvim**](https://github.com/alaviss/nim.nvim) 
+- [**nim.nvim**](https://github.com/alaviss/nim.nvim)
   (for semantic highlights and indents)
 
 #### Step 1
