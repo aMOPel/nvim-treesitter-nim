@@ -12,7 +12,7 @@ parser_configs.nim = {
   install_info = {
     url = "https://github.com/alaviss/tree-sitter-nim",
     files = { "src/parser.c", "src/scanner.cc" },
-    revision = "35c0245439947e66239c1d59ea28b3fb0bba3d4c",
+    revision = "e0c246a87af7882da791970011e900a21e245e5e",
     cxx_standard = "c++14",
     use_makefile = true,
   },

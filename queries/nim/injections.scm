@@ -87,6 +87,17 @@
           (#offset! @injection.content 0 1 0 -1) ; wrapping `"`
     )))
 
+; normal strings
+((comment) @injection.language
+  (#offset! @injection.language 0 2 0 0) . ; leading `# `
+  (pragma_statement
+    (pragma_list
+      (colon_expression
+        left: (identifier) @_emit_keyword (#eq? @_emit_keyword "emit")
+        right: (string_literal ["r\"" "R\""] . "\"") @injection.content)
+          (#offset! @injection.content 0 2 0 -1) ; wrapping `"`
+    )))
+
 ; multiline strings
 ((comment) @injection.language
   (#offset! @injection.language 0 2 0 0) . ; leading `# `
@@ -96,6 +107,17 @@
         left: (identifier) @_emit_keyword (#eq? @_emit_keyword "emit")
         right: (string_literal "\"\"\"" . "\"\"\"") @injection.content)
           (#offset! @injection.content 0 3 0 -3) ; wrapping `"""`
+    )))
+
+; multiline strings
+((comment) @injection.language
+  (#offset! @injection.language 0 2 0 0) . ; leading `# `
+  (pragma_statement
+    (pragma_list
+      (colon_expression
+        left: (identifier) @_emit_keyword (#eq? @_emit_keyword "emit")
+        right: (string_literal ["r\"\"\"" "R\"\"\""] . "\"\"\"") @injection.content)
+          (#offset! @injection.content 0 4 0 -3) ; wrapping `"""`
     )))
 
 ; =============================================================================

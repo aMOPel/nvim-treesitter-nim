@@ -55,7 +55,31 @@ function addInt(a_33557050, b_33557051) {
 """.}
 
 # javascript
+{.emit: r"""
+function addInt(a_33557050, b_33557051) {
+  var result = a_33557050 + b_33557051;
+  checkOverflowInt(result);
+  return result;
+}
+""".}
+
+# javascript
+{.emit: R"""
+function addInt(a_33557050, b_33557051) {
+  var result = a_33557050 + b_33557051;
+  checkOverflowInt(result);
+  return result;
+}
+""".}
+
+# javascript
 {.emit: "checkOverflowInt(result);".}
+
+# javascript
+{.emit: r"checkOverflowInt(result);".}
+
+# javascript
+{.emit: R"checkOverflowInt(result);".}
 
 # objc
 {.emit: """

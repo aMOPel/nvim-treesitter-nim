@@ -51,9 +51,8 @@
   . "'" @open.char
    "'" @close.char .) @scope.char
 
-; TODO: r" R" test changes locally
 (string_literal
-  . "\"" @open.string
+  . ["\"" "r\"" "R\""] @open.string
    "\"" @close.string .) @scope.string
 
 (string_literal
