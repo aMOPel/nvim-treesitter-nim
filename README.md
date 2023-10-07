@@ -68,10 +68,17 @@ Install the plugin like any other.
 E.g. with `Packer`:
 
 ```lua
-use { "aMOPel/nvim-treesitter-nim" }
+use {
+  "aMOPel/nvim-treesitter-nim",
+  -- install/update parsers
+  run = {
+    ':TSUpdate nim',
+    ':TSUpdate nim_format_string',
+  },
+}
 ```
 
-#### Step 2
+#### (Step 2)
 
 This plugin just registers the
 [**Nim Parser**](https://github.com/alaviss/tree-sitter-nim)
@@ -87,7 +94,8 @@ You still need to run
 :TSInstall nim_format_string
 ```
 
-to actually install the parsers.
+manually to actually install the parsers,
+if it doesn't happen via your package manager hook.
 
 ### NOTES
 
