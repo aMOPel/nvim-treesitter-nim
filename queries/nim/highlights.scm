@@ -739,6 +739,27 @@
 ; NOTE: it can't be know what the left identifier is, so better leave it alone
 ; for consistency
 
+; discard literals is like a comment
+
+(discard_statement
+  "discard" @comment
+  [
+    (nil_literal)
+    (integer_literal)
+    (float_literal)
+    (custom_numeric_literal)
+    (char_literal)
+    (string_literal)
+    (array_construction)
+    ; for sequences
+    (prefix_expression 
+      operator: (operator) @_at
+      (array_construction)
+      (#eq? @_at "@"))
+    (tuple_construction)
+    (curly_construction)
+  ] @comment)
+
 ; =============================================================================
 ; @error                 ; syntax/parser errors
 

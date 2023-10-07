@@ -232,3 +232,17 @@ of xxx[2]:
 else:
   block label:
     break label
+
+discard 5
+discard 5.0
+discard nil
+discard 'a'
+discard "hi"
+discard """hi
+"""
+discard []
+discard @[]
+discard (5,)
+discard {}
+discard {:}
+discard {:}
