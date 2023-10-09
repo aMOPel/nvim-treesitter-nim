@@ -32,10 +32,10 @@ to `nvim-treesitter` will follow. So this plugin remains a temporary measure.
   - [ ] Indents (probably not coming any time soon).
 - [x] [**nvim-treesitter-refactor**](https://github.com/nvim-treesitter/nvim-treesitter-refactor)
 - [x] [**nvim-treesitter-context**](https://github.com/nvim-treesitter/nvim-treesitter-context)
-- [x] [**nvim-treesitter-textobjects**](https://github.com/nvim-treesitter/nvim-treesitter-textobjects) (see [Notes](#nvim-treesitter-textobjectsp))
+- [x] [**nvim-treesitter-textobjects**](https://github.com/nvim-treesitter/nvim-treesitter-textobjects) (see [Notes](#nvim-treesitter-textobjects))
 - [x] [**vim-matchup**](https://github.com/andymass/vim-matchup) (see [Notes](#vim-matchup))
 - [x] [**rainbow-delimiters.nvim**](https://github.com/HiPhish/rainbow-delimiters.nvim)
-- [x] [**nim.nvim**](https://github.com/alaviss/nim.nvim) Synergy (see [Notes](#nim.nvim))
+- [x] [**nim.nvim**](https://github.com/alaviss/nim.nvim) Synergy (see [Notes](#nimnvim))
 
 See [`tests/`](./tests/) for explicit examples of supported features.
 
