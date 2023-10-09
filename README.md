@@ -17,6 +17,8 @@ to `nvim-treesitter` will follow. So this plugin remains a temporary measure.
 
 **Long version:** read the comments in the [rejected PR](https://github.com/nvim-treesitter/nvim-treesitter/pull/5437).
 
+---
+
 ### Features
 
 - [**nvim-treesitter**](https://github.com/nvim-treesitter/nvim-treesitter)
@@ -35,9 +37,11 @@ to `nvim-treesitter` will follow. So this plugin remains a temporary measure.
 - [x] [**nvim-treesitter-textobjects**](https://github.com/nvim-treesitter/nvim-treesitter-textobjects) (see [Notes](#nvim-treesitter-textobjects))
 - [x] [**vim-matchup**](https://github.com/andymass/vim-matchup) (see [Notes](#vim-matchup))
 - [x] [**rainbow-delimiters.nvim**](https://github.com/HiPhish/rainbow-delimiters.nvim)
-- [x] [**nim.nvim**](https://github.com/alaviss/nim.nvim) Synergy (see [Notes](#nimnvim))
+- [x] [**nim.nvim**](https://github.com/alaviss/nim.nvim) synergy with semantic highlights (see [Notes](#nimnvim))
 
 See [`tests/`](./tests/) for explicit examples of supported features.
+
+---
 
 ### Installation
 
@@ -55,6 +59,7 @@ See [`tests/`](./tests/) for explicit examples of supported features.
 - [**nvim-treesitter-context**](https://github.com/nvim-treesitter/nvim-treesitter-context)
 - [**nvim-treesitter-textobjects**](https://github.com/nvim-treesitter/nvim-treesitter-textobjects)
 - [**vim-matchup**](https://github.com/andymass/vim-matchup)
+- [**rainbow-delimiters.nvim**](https://github.com/HiPhish/rainbow-delimiters.nvim)
 
 **Recommended:**
 
@@ -96,6 +101,8 @@ You still need to run
 
 manually to actually install the parsers,
 if it doesn't happen via your package manager hook.
+
+---
 
 ### NOTES
 
