@@ -568,7 +568,15 @@
 ; =============================================================================
 ; @type.definition ; type definitions (e.g. `typedef` in C)
 
-(type_section ("type") @type.definition)
+(type_section
+  (type_declaration
+    (type_symbol_declaration
+      name: [
+        (identifier) @type.definition
+        (accent_quoted (identifier) @type.definition)
+        (exported_symbol (identifier) @type.definition)
+        (exported_symbol (accent_quoted (identifier) @type.definition))
+      ])))
 
 ; =============================================================================
 ; @type.qualifier  ; type qualifiers (e.g. `const`)
