@@ -185,7 +185,11 @@ discard proc1[int, string](a=5, b=1, @["hi"])
 
 # BUG: nimsuggest captures quantified function call with generic argument 4 times
 external_module.externalGenProc1[int](5)
+external_module.externalGenProc1[:seq[seq[int]]](5)
 external_module.externalGenProc2()
+
+discard 5+5 {.test.}
+
 5.echo("abc")
 5.0.echo
 'a'.echo
@@ -284,3 +288,19 @@ discard (5,)
 discard {}
 discard {:}
 discard {:}
+
+template optMul{`*`(a, 2)}(a: int): int = a + a
+template canonMul{`*`(a, b)}(a: int{lit}, b: int): int = b * a
+template t{(0|1|2){x}}(x: untyped): untyped = x + 1
+template t{x = (~x){y} and (~x){z}}(x, y, z: bool) =
+proc somefunc(s: static[string])
+
+type
+  Comparable = concept x, y
+    discard
+  Stack[T] = concept s, var v
+    discard
+  MyConcept = concept x, var v, ref r, ptr p, static s, type T
+    discard
+  Graph = concept g, type G of MyConcept, Stack[int]
+    discard

@@ -53,7 +53,7 @@ for for_var1, for_var2 in 0..5:
           block label:
             break label
 
-proc `proc1`*[GenParam1: int](`param1`, param2: int) =
+proc `proc1`*[GenParam1: int](`param1`, param2*: int) =
   discard
 func func1() =
   discard
@@ -81,6 +81,9 @@ let anonym_iterator = iterator(): int =
 static:
   let a = 5
   discard a
+  {.test.}:
+    discard a
+
 
 sort(cities) do (x, y: string) -> int:
   cmp(x.len, y.len)
@@ -94,3 +97,13 @@ except error as e:
   discard
 finally:
   discard
+
+type
+  Comparable = concept x, y
+    discard
+  Stack[T] = concept s, var v
+    discard
+  MyConcept = concept x, var v, ref r, ptr p, static s, type T
+    discard
+  Graph = concept g, type G of MyConcept, Stack[int]
+    discard
