@@ -204,36 +204,42 @@
 
 ; ==============================================================================
 ; @definition.namespace  ; modules or namespaces
+; @definition.import     ; imported names
+
+(import_statement
+  (expression_list
+    (identifier) @definition.namespace))
 
 (import_statement
   (expression_list
     (infix_expression
-      operator: (operator) @_operator (#eq? @_operator "/")
+      operator: "as"
+      right: (identifier) @definition.namespace)))
+
+(import_statement
+  (expression_list
+    (infix_expression
+      operator: (operator) @_operator
       right: [
         (identifier) @definition.namespace
         (array_construction (identifier) @definition.namespace)
-      ]
-      )))
+      ]))
+  (#eq? @_operator "/"))
 
 (import_from_statement
   module: (infix_expression
-    operator: (operator) @_operator (#eq? @_operator "/")
+    operator: (operator) @_operator
     right: (identifier) @definition.namespace)
   (expression_list [
     (identifier) @definition.import
     (accent_quoted) @definition.import
-  ]))
-
-; ==============================================================================
-; @definition.import     ; imported names
-
-; ==============================================================================
-; @definition.associated ; the associated type of a variable
+  ])
+  (#eq? @_operator "/"))
 
 ; ==============================================================================
 ; @scope                 ; scope block
 
-; (when) 
+; (when)
 ; NOTE: `when` does actually not create a scope
 
 (if

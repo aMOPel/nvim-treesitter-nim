@@ -10,6 +10,8 @@ let
   regex3 = rex"([a-z]*\s{5})"
   regex4 = rex"""([a-z]*\s{5}
   )"""
+  regex5 = prex"""([a-z]*\s{5}
+  )"""
 
 # sql
 import db_connector/db_sqlite
@@ -36,7 +38,7 @@ let
 # emit pragma
 
 # BUG: previous block swallows (comment) and breaks injections
-# javascript
+#javascript
 {.emit: """
 function addInt(a_33557050, b_33557051) {
   var result = a_33557050 + b_33557051;
@@ -45,7 +47,7 @@ function addInt(a_33557050, b_33557051) {
 }
 """.}
 
-# javascript
+#javascript
 {.emit: """
 function addInt(a_33557050, b_33557051) {
   var result = a_33557050 + b_33557051;
@@ -54,7 +56,7 @@ function addInt(a_33557050, b_33557051) {
 }
 """.}
 
-# javascript
+#javascript
 {.emit: r"""
 function addInt(a_33557050, b_33557051) {
   var result = a_33557050 + b_33557051;
@@ -63,7 +65,7 @@ function addInt(a_33557050, b_33557051) {
 }
 """.}
 
-# javascript
+#javascript
 {.emit: R"""
 function addInt(a_33557050, b_33557051) {
   var result = a_33557050 + b_33557051;
@@ -72,16 +74,16 @@ function addInt(a_33557050, b_33557051) {
 }
 """.}
 
-# javascript
+#javascript
 {.emit: "checkOverflowInt(result);".}
 
-# javascript
+#javascript
 {.emit: r"checkOverflowInt(result);".}
 
-# javascript
+#javascript
 {.emit: R"checkOverflowInt(result);".}
 
-# objc
+#objc
 {.emit: """
 #include <objc/Object.h>
 @interface Greeter:Object
@@ -103,10 +105,10 @@ function addInt(a_33557050, b_33557051) {
 #include <stdlib.h>
 """.}
 
-# objc
+#objc
 {.emit: "checkOverflowInt(result);".}
 
-# cpp
+#cpp
 {.emit: """/*TYPESECTION*/
 struct Vector3 {
 public:
@@ -116,8 +118,20 @@ public:
 };
 """.}
 
-# cpp
+#cpp
 {.emit: "checkOverflowInt(result);".}
+
+# =============================================================================
+# asm statement
+
+#javascript
+asm """
+function addInt(a_33557050, b_33557051) {
+  var result = a_33557050 + b_33557051;
+  checkOverflowInt(result);
+  return result;
+}
+"""
 
 # =============================================================================
 # markdown in doc comments

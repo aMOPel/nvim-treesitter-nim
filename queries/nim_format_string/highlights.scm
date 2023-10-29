@@ -1,10 +1,8 @@
-(string_literal) @string
 (matching_curlies 
   opening_curly: (opening_curly) @punctuation.special 
-  nim_expression: (nim_expression 
-    escaped_curly: (escaped_curly)* @string.escape) @none
   equals: (equals)? @punctuation.special
   closing_curly: (closing_curly) @punctuation.special)
+
 (format_specifiers
   colon: (colon) @punctuation.delimiter
   fill_align: (fill_align)? @conditional.ternary
@@ -14,3 +12,7 @@
   min_width: (min_width)? @number
   precision: (precision)? @number
   type: (type)? @type)
+
+(matching_curlies 
+  nim_expression: (nim_expression 
+    escaped_curly: (escaped_curly)+ @string.escape) @none)

@@ -25,13 +25,14 @@ to `nvim-treesitter` will follow. So this plugin remains a temporary measure.
   - [x] Highlighting
   - [x] Language Injection
     - `SQL` and `RegEx` strings
+    - any language you want in user defined generalized string literals
     - `std/strformat` strings, including debugging `=` and other
       [quirks](https://nim-lang.org/docs/strformat.html#standard-format-specifiers-for-strings-integers-and-floats) (see [Notes](#format-strings))
     - `MarkDown` in documentation comments
-    - `C/Cpp/ObjC/JavaScript` in emit pragma (see [Notes](#emit-pragma))
+    - `C/Cpp/ObjC/JavaScript` in emit pragma and `asm` statement (see [Notes](#emit-pragma--asm-statement))
   - [x] Folds
   - [x] Locals
-  - [ ] Indents (probably not coming any time soon).
+  - [x] Indents
 - [x] [**nvim-treesitter-refactor**](https://github.com/nvim-treesitter/nvim-treesitter-refactor)
 - [x] [**nvim-treesitter-context**](https://github.com/nvim-treesitter/nvim-treesitter-context)
 - [x] [**nvim-treesitter-textobjects**](https://github.com/nvim-treesitter/nvim-treesitter-textobjects) (see [Notes](#nvim-treesitter-textobjects))
@@ -113,18 +114,23 @@ if it doesn't happen via your package manager hook.
 In format strings `{`/`}` have to be escaped, which breaks the `Nim parser`,
 thus expressions in format strings containing `\{`/`\}` will intentionally not be parsed.
 
-#### Emit Pragma
+#### Emit Pragma / `asm` Statement
 
-Parsing in the emit pragma requires the language name in comment with a space on the preceding line.
+Parsing in the emit pragma requires the language name in comment **without a space** on the preceding line.
 E.g.:
 
 ```nim
-# cpp           <- necessary
+#cpp           <- necessary
 {.emit: """
 ...
 <cpp code>
 ...
 """.}
+
+#javascript           <- necessary
+asm """
+<js code>
+"""
 ```
 
 #### nvim-treesitter-textobjects
