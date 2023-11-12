@@ -18,7 +18,7 @@ type X = ref object
 var a*: X = nil
 # enum
 type 
-  `Enum1`* {.pure.} = enum one, two, three
+  `Enum1`* {.pure, "test".} = enum one, two, three
   Enum2* = enum 
     one="hi", two=4, three=(5,"test")
 
@@ -174,7 +174,7 @@ p2 = nil
 var d* = cast[ptr Person1](alloc0(sizeof(Person1)))
 
 # procs
-type Proc1* = proc(a, b: var int, c: GenObj[seq[array[0..5, int]]]): void {.nimcall.}
+type Proc1* = proc(a, b: var int, c: GenObj[seq[array[0..5, int]]]): void {.nimcall, "test".}
 type Proc2* = proc(
   a,
   b: proc(a, b: proc(a, b: GenObj[seq[array[0..test, int]]]) {.nimcall.}) {.nimcall.},
@@ -303,3 +303,6 @@ type
     discard
   Graph = concept g, type G of MyConcept, Stack[int]
     discard
+
+var
+  y: int {.asdf: [asdf, asdf, "test", 1], "test".} = 1
