@@ -53,7 +53,7 @@ for for_var1, for_var2 in 0..5:
           block label:
             break label
 
-proc `proc1`*[GenParam1: int](`param1`, param2*: int) =
+proc `proc1`*[GenParam1: int](`param1`, param2: int) =
   discard
 func func1() =
   discard

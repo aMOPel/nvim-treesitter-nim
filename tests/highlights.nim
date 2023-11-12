@@ -23,6 +23,7 @@ type
     one="hi", two=4, three=(5,"test")
 
 discard `Enum1`.one
+discard Enum2.one
 
 # array
 type 
@@ -42,9 +43,6 @@ proc myWriteln*(f: File, a: varargs[string, `$`]) = discard
 
 # tuple
 type
-  # BUG: nimsuggest inconsistent, 
-  # doesn't capture tuple field definition but references
-  # and does capture object field definition and references
   Person = tuple[name: string, age: int]
   OneField* = tuple
     name: string
@@ -84,7 +82,7 @@ import
   std/sequtils as qu
 import lib/pure/strutils as strutils
 import dir / [moduleA, moduleB]
-from std/strutils import `%`
+from std/strutils import `%`, spaces
 import B
 export B.MyObject
 import foo/bar/baz
@@ -96,7 +94,6 @@ let
   # BUG: not recognized as constructor
   A* = GenObj[int](a:5)
 
-  # BUG: nimsuggest doesn't capture quantified type
   B* = external_module.ExternalGenObj[int](a:5)
 
 assert B is external_module.ExternalGenObj[seq[seq[int]]]
@@ -112,8 +109,6 @@ type
     nkIf            # an if statement
   Node = ref NodeObj
   NodeObj = object
-    # BUG: nimsuggest these are definitions and should not be captured 
-    # BUG: nimsuggest fails to capture discriminator field, if it is accent_quoted
     case `kind`*: NodeKind  # the `kind` field is the discriminator
     of nkInt: `intVal`*: int
     of nkFloat: floatVal: float
@@ -124,16 +119,23 @@ type
       condition*, thenPart, elsePart: Node
     else:
       b: int
-  # BUG: nimsuggest should not capture definition
   NodeObj1* = object
-    # BUG: nimsuggest only catches path that will happen.
-    # it should instead capture everything that's not gonna happen 
     when false:
       a: int
     elif false:
       b: int
     else:
       b: int
+
+when true:
+  type T = int
+else:
+  type T = float
+
+if true:
+  type U = int
+else:
+  type U = float
 
 var x* = Node(kind: nkAdd, 
   leftOp: @[
@@ -144,9 +146,10 @@ var x* = Node(kind: nkAdd,
 
 x.leftOp[0].leftOp[0].kind = nkInt
 
-# BUG: nimsuggest should not capture definition, as it doesn't with anything else
 proc getIdentity(x: var Node): var Node =
   result = x
+
+converter converter1(a: int): int = 5
 
 x.getIdentity().kind = nkInt
 
@@ -183,9 +186,8 @@ proc proc1*[T: int|float, S](a, b: T, _: seq[S]): var GenObj[int] {.nimcall.} =
 discard proc1(5, 1, @["hi"])
 discard proc1[int, string](a=5, b=1, @["hi"])
 
-# BUG: nimsuggest captures quantified function call with generic argument 4 times
 external_module.externalGenProc1[int](5)
-external_module.externalGenProc1[:seq[seq[int]]](5)
+external_module.externalGenProc1[seq[seq[int]]](5)
 external_module.externalGenProc2()
 
 discard 5+5 {.test.}
@@ -213,11 +215,8 @@ proc `+` (x, y: Dollar): Dollar =
 let cash = 15.Dollar
 discard cash + 12.Dollar
 
-# BUG: nimsuggest inconsistent, doesn't capture template definition but references
-# but does capture macro definition and references
 # template
 template additive*(typ: typedesc) =
-  # BUG: nimsuggest captures break down in template
   proc `+` *(x, y: typ): typ {.borrow.}
 
 # iterator
