@@ -1,8 +1,7 @@
-
 # functions
 
 proc `proc1`*[GenParam1: int](`param1`, param2: int) =
-  return 
+  return
     (1,2.0,3)
 func func1() =
   discard
@@ -29,39 +28,39 @@ let anonym_iterator = iterator(): int =
 
 # loops and conditionals
 for for_var1, for_var2 in 0..5:
-  while true: 
-    if true: 
+  while true:
+    if true:
       discard
     elif true:
       discard
     else:
-      when true: 
+      when true:
         discard
       elif true:
         discard
       else:
         case var1:
-        of 1: 
+        of 1:
           discard
-        of 2: 
+        of 2:
           discard
-        elif true: 
+        elif true:
           discard
-        elif true: 
-          discard
-          discard
+        elif true:
           discard
           discard
-        else: 
+          discard
+          discard
+        else:
           discard
 
 case var1:
-of 5:
+of 5, 6:
   discard
 
 # parameters
-proc a[t: int, x:int](a,b: int = 5, c:int) = discard
-let b = proc (a,b: int = 5, c:int) = discard
+proc a[t: int, x:int](axxx,b: int = 5, c:int) = discard
+let b = proc (a,b: int = 5; c:int) = discard
 
 type O = object
   a: int
@@ -83,7 +82,8 @@ b 5,5,5
 b 5,5:
   5
 
-type x = array[0..1, int]
+type 
+  x = array[0..1, int]
 
 import std/[re, strutils]
 import std/re, std/strutils
@@ -106,10 +106,57 @@ except Error, Berror: discard
 
 {.asdf: asdf, asdf.}
 
+type
+  O = object
+    x, y: int
+  T = tuple
+    x, y: int
+  T1 = tuple[a,b:int; c:int, d: int]
+  E = enum a=1, b
+  E1 = enum 
+    a=1
+    b
+var
+  a, b: int
+  (s, t, (r, u)) = (5,5,(5,5))
+for x, y in 0..5: discard
+
+discard 5 + 5
+
+type
+  Graph = concept g, type G of EquallyComparable, Copyable
+    type
+      VertexType = G.VertexType
+      EdgeType = G.EdgeType
+
+var z = 5
+z.dec[:int,int](2)
+
+# call
+echo()
+echo(55,55)
+echo 55,55
+55.echo 55, 55
+55.echo(55, 55)
+import std/algorithm
+var cities = ["a", "b"]
+sort(cities) do (x, y: string) -> int:
+  cmp(x.len, y.len)
+cities.sort() do (x, y: string) -> int:
+  cmp(x.len, y.len)
+echo(5,5):
+  5
+echo 5,5:
+  5
+
+# block
+# see folds.nim
+
+discard
 # comments
 
 # normal comment
-#[ block 
+#[ block
 comment
 ]#
 
@@ -128,13 +175,13 @@ var
   )
   y:int {.asdf.} = 1
 x = 5
-type 
+type
   O[T]{.asd.} = object of RootObj
     a: int = 5
     case x: int:
     of 5:
       b:int = 5
-      
+
   T = tuple
     a: int = 5
     b: int
