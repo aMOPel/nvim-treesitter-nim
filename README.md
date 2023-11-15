@@ -14,7 +14,7 @@ This repo will just hold test files until further notice.
 - [x] [**nvim-treesitter-context**](https://github.com/nvim-treesitter/nvim-treesitter-context)
 - [ ] [**nvim-treesitter-textobjects**](https://github.com/nvim-treesitter/nvim-treesitter-textobjects)
 - [ ] [**vim-matchup**](https://github.com/andymass/vim-matchup)
-- [ ] [**rainbow-delimiters.nvim**](https://github.com/HiPhish/rainbow-delimiters.nvim)
+- [x] [**rainbow-delimiters.nvim**](https://github.com/HiPhish/rainbow-delimiters.nvim)
 
 **Recommended:**
 
