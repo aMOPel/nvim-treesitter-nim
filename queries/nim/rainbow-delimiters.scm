@@ -1,19 +1,47 @@
-(array_construction "[" @opening "]" @closing) @container
-(tuple_construction "(" @opening ")" @closing) @container
-(tuple_deconstruct_declaration "(" @opening ")" @closing) @container
-(curly_construction "{" @opening ":"? @intermediate "}" @closing) @container
+(array_construction
+  "[" @delimiter
+  "]" @delimiter @sentinel) @container
+(tuple_construction
+  "(" @delimiter
+  ")" @delimiter @sentinel) @container
+(tuple_deconstruct_declaration
+  "(" @delimiter
+  ")" @delimiter @sentinel) @container
+(curly_construction
+  "{" @delimiter
+  ":"? @delimiter
+  "}" @delimiter @sentinel) @container
 
-(parenthesized "(" @opening ")" @closing) @container
+(parenthesized
+  "(" @delimiter
+  ")" @delimiter @sentinel) @container
 
-(argument_list "(" @opening ")" @closing) @container
-(parameter_declaration_list "(" @opening ")" @closing) @container
+(argument_list
+  "(" @delimiter
+  ")" @delimiter @sentinel) @container
+(parameter_declaration_list
+  "(" @delimiter
+  ")" @delimiter @sentinel) @container
 
-(bracket_expression "[" @opening "]" @closing) @container
-(field_declaration_list "[" @opening "]" @closing) @container
-(generic_parameter_list "[" @opening "]" @closing) @container
+(bracket_expression
+  "[" @delimiter
+  "]" @delimiter @sentinel) @container
+(field_declaration_list
+  "[" @delimiter
+  "]" @delimiter @sentinel) @container
+(generic_parameter_list
+  "[" @delimiter
+  "]" @delimiter @sentinel) @container
 
-(cast type: "[" @opening type: "]" @closing) @container
-(cast value: "(" @opening value: ")" @closing) @container
+(cast
+  type: "[" @delimiter
+  type: "]" @delimiter
+  value: "(" @delimiter
+  value: ")" @delimiter @sentinel) @container
 
-(term_rewriting_pattern "{" @opening "}" @closing) @container
-(curly_expression "{" @opening "}" @closing) @container
+(term_rewriting_pattern
+  "{" @delimiter
+  "}" @delimiter @sentinel) @container
+(curly_expression
+  "{" @delimiter
+  "}" @delimiter @sentinel) @container
