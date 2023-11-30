@@ -1,3 +1,8 @@
+```nim
+# many of these code snippets come from
+# https://nim-lang.org/docs/manual.html
+# Authors: Andreas Rumpf, Zahary Karadjov
+
 # many of these code snippets come from
 # https://nim-lang.org/docs/manual.html
 # Authors: Andreas Rumpf, Zahary Karadjov
@@ -157,8 +162,8 @@ x.getIdentity().kind = nkInt
 # generics
 let
   C* = GenObj[seq[array[Enum1.one..Enum1.two, seq[array[(-5*10).. -1,
-  seq[seq[array[test..5, int]]]]]]]](a: @[])
-  unknownKindBounded* = range[Enum1.one..Enum1.two] Enum1.one
+  seq[seq[array[test..test, int]]]]]]]](a: @[])
+  unknownKindBounded* = range[Enum1.one..Enum1.two](Enum1.one)
   D* = GenObj[array[(-5*0).. 0, int]](a: [1])
 
 # sets
@@ -187,19 +192,6 @@ discard proc1(5, 1, @["hi"])
 discard proc1[int, string](a=5, b=1, @["hi"])
 discard proc1[int, string](a=5, b=1, @["hi"])
 
-let procArray = [proc (x:int) = discard]
-# BUG: falsly captured array index as type
-procArray[0](5)
-
-type 
-  # BUG: can't distinguish between constant that is max length of array
-  # and oridnal type that describes indexing of array
-  A1 = array[one, int]
-  A2 = array[Enum1.one, int]
-  A5 = array[Enum1, int]
-  A3 = array[one..two, int]
-  A4 = array[`Enum1`.`one`..Enum1.two, int]
-
 external_module.externalGenProc1[int](5)
 external_module.externalGenProc1[seq[seq[int]]](5)
 external_module.externalGenProc2()
@@ -219,7 +211,7 @@ discard 5+5 {.test, "test".}
 
 # type qualifiers
 type 
-  TypeQualifiers*[T, S] = distinct ref ptr T
+  TypeQualifiers*[T] = distinct ref ptr T
   Dollar = distinct int
   Euro* {.borrow: `.`, "test".} = distinct Dollar
 
@@ -306,7 +298,7 @@ template optMul{`*`(a, 2)}(a: int): int = a + a
 template canonMul{`*`(a, b)}(a: int{lit}, b: int): int = b * a
 template t{(0|1|2){x}}(x: untyped): untyped = x + 1
 template t{x = (~x){y} and (~x){z}}(x, y, z: bool) =
-  proc somefunc(s: static[string])
+proc somefunc(s: static[string])
 
 type
   Comparable = concept x, y
@@ -320,3 +312,4 @@ type
 
 var
   y: int {.asdf: [asdf, asdf, "test", 1], "test".} = 1
+```

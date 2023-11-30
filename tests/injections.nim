@@ -34,6 +34,19 @@ let
   asdf{{}}
   """
 
+# define your own generalized strings and get injection
+proc html(s: string) =
+  discard
+
+let html1 = html"""
+<!DOCTYPE html>
+<html>
+  <body>
+  <div>Hello World</div>
+  </body>
+</html>
+"""
+
 # =============================================================================
 # emit pragma
 
