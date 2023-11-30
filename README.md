@@ -12,7 +12,7 @@ This repo will just hold test files until further notice.
 **Merged Upstream:**
 - [x] [**nvim-treesitter**](https://github.com/nvim-treesitter/nvim-treesitter)
 - [x] [**nvim-treesitter-context**](https://github.com/nvim-treesitter/nvim-treesitter-context)
-- [ ] [**nvim-treesitter-textobjects**](https://github.com/nvim-treesitter/nvim-treesitter-textobjects)
+- [x] [**nvim-treesitter-textobjects**](https://github.com/nvim-treesitter/nvim-treesitter-textobjects)
 - [x] [**vim-matchup**](https://github.com/andymass/vim-matchup)
 - [x] [**rainbow-delimiters.nvim**](https://github.com/HiPhish/rainbow-delimiters.nvim)
 
